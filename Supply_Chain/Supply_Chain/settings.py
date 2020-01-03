@@ -77,8 +77,12 @@ WSGI_APPLICATION = 'Supply_Chain.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'SupplyChain',
+        'USER': 'admin',
+        'PASSWORD': 'Gre@ter834',
+        'HOST': 'localhost',
+        'POST': '3306'
     }
 }
 

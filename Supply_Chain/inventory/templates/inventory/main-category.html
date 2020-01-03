@@ -1,0 +1,68 @@
+{% extends 'users/base.html' %}
+{% block content %}
+    <div class="input-group">
+        <div class="col-md-12">
+            <div class="col-md-12">
+                <a role="button" href="" data-toggle="modal" data-target='#addCategoryModal' style="float:right;" class="btn btn-outline-secondary" ><i class="fas fa-plus"></i> Add New</a>
+            </div>
+            <div class="col-md-11">
+                <a role="button" href="{% url 'Sub-Categories' %}" style="float:right;" class="btn btn-outline-danger" name="button">Sub Category</a>
+            </div>
+        </div>
+    </div>
+    <h4>Main Category</h4>
+    <div class="table table-responsive" style="background-color: white;">
+        <table class="table table-bordered sort" id="mainCatTable">
+            <thead>
+                <tr>
+                    <th style="width:100px;">S.No</th>
+                    <th>Category</th>
+                    <th style="width: 200px;">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cat in mainCat %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ cat.mainCategoryTitle }}</td>
+                        <td></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ADD Modal -->
+    <div class="modal fade" id="addCategoryModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Add Main Category</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <form action="{% url 'Main-Categories' %}" method="post"  autocomplete="off">
+                {% csrf_token %}
+                 <div class="modal-body">
+                     <div class="form-row">
+                       <div class="form-group col-md-12">
+                         <input type="hidden"  class="form-control form-control-sm" value='add-category' name='add-and-edit-category'>
+                         <label for="">Category Name</label>
+                         <input type="text"  class="form-control form-control-sm" name="main_category_name" id="main_category_name">
+                       </div>
+                      </div>
+                 </div>
+               <!-- Modal footer -->
+               <div class="modal-footer">
+                 <input type="submit" class="btn btn-success" value="Submit"/>
+               </div>
+             </form>
+          <!-- <form class="" action="index.html" method="post">
+          </form> -->
+          </div>
+        </div>
+      </div>
+{% endblock %}

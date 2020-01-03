@@ -1,0 +1,81 @@
+{% extends 'users/base.html' %}
+{% block content %}
+    <div class="input-group">
+        <div class="col-md-12">
+        <a role="button" href="" style="float:right;" class="btn btn-outline-secondary" name="button" data-toggle="modal" data-target="#addCategoryModal"><i class="fas fa-plus"></i> Add New</a>
+        </div>
+    </div>
+    <h4>Sub Category</h4>
+    <div class="table table-responsive" style="background-color: white;">
+        <table class="table table-bordered sort" id="subCatTable">
+            <thead>
+                <tr>
+                    <th style="width:100px;">S.No</th>
+                    <th>Category</th>
+                    <th style='width: 300px;'>Main Category</th>
+                    <th style="width: 200px;">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cat in subCat %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ cat.subCategoryTitle }}</td>
+                        <td>{{ cat.mainCatId }}</td>
+                        <td></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+     <!-- ADD Modal -->
+     <div class="modal fade" id="addCategoryModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Add Sub Category</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <form action="{% url 'Sub-Categories' %}" method="post"  autocomplete="off">
+                {% csrf_token %}
+                 <div class="modal-body">
+                     <div class="form-row">
+                       <div class="form-group col-md-12">
+                         <input type="hidden"  class="form-control form-control-sm" value='add-category' name='add-and-edit-category'>
+                         <label for="">Category Name</label>
+                         <input type="text"  class="form-control form-control-sm" name="sub_category_name" id="sub_category_name">
+                       </div>
+                       <div class="form-group col-md-12">
+                           <input type="text" id='select'>
+                        <label for="">Category Name</label>
+                        <select id="mainId" class="form-control form-control-sm main_drop" id="catSelect">
+                            <option>Select</option>
+                            {% for cat in mainCat %}
+                                <option value="{{ cat.mainCategoryId }}">{{ cat.mainCategoryTitle }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                      </div>
+                 </div>
+               <!-- Modal footer -->
+               <div class="modal-footer">
+                 <input type="submit" class="btn btn-success" value="Submit"/>
+               </div>
+             </form>
+          <!-- <form class="" action="index.html" method="post">
+          </form> -->
+          </div>
+        </div>
+      </div>
+
+      <script>
+          $("#catSelect").on('change', function(){
+            $('#select').val($("#catSelect option:selected").val());
+          });
+      </script>
+{% endblock content %}
